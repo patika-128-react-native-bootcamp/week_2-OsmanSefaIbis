@@ -1,20 +1,30 @@
-import React from 'react';
-import {Text, TextInput, View} from 'react-native';
+import React, {useState} from 'react';
+import {View, TextInput, Button, Text} from 'react-native';
 import styles from './ProductInput.styles';
-import Input from '../Input';
-import Button from '../Button';
 
-const addProduct = () => {};
-
-const ProductInput = () => {
+const ProductInput = ({add}) => {
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
   return (
     <View>
-      <Input title="Enter Item" />
-      <Input title="Enter Price" />
+      <Text>Ürün</Text>
+      <TextInput
+        style={styles.input}
+        onChangeText={setName}
+        value={name}
+        placeholder="Ürün gir"
+      />
+      <Text>Fiyat</Text>
+      <TextInput
+        style={styles.input}
+        onChangeText={setNumber}
+        value={number}
+        placeholder="Fiyat gir"
+      />
       <Button
-        title="Add"
-        onpress={() => {
-          addProduct();
+        title="EKLE"
+        onPress={() => {
+          add({name, number});
         }}
       />
     </View>

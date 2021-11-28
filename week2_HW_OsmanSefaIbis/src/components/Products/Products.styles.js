@@ -13,4 +13,10 @@ export default StyleSheet.create({
     padding: 10,
     margin: 10,
   },
+  item: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 20,
+    marginVertical: 5,
+  },
 });

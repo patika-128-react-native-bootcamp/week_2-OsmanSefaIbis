@@ -13,4 +13,12 @@ export default StyleSheet.create({
     padding: 10,
     margin: 10,
   },
+  input: {
+    height: 25,
+    margin: 10,
+    borderWidth: 1,
+    paddingLeft: 5,
+    backgroundColor: '#8e8e8e',
+    borderRadius: 3,
+  },
 });

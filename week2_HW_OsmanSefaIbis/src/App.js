@@ -7,46 +7,62 @@
  * @flow strict-local
  */
 
-import React, {useEffect, useState} from 'react';
-import {SafeAreaView, Text, View} from 'react-native';
-import Button from './components/Button';
+import React, {useState} from 'react';
+import {SafeAreaView, View} from 'react-native';
 import Badge from './components/Badge';
-import Input from './components/Input';
-import ProductCard from './components/ProductCard';
 import ProductInput from './components/ProductInput';
 import Products from './components/Products';
 import styles from './App.styles';
 
-const ascendingOrder = value => {};
-const descendingOrder = value => {};
-const timeOrder = value => {};
-
 const App = () => {
   const [data, setData] = useState([]);
+  const addProduct = ({name, number}) => {
+    setData(prev => {
+      return [
+        ...prev,
+        {
+          name: name,
+          price: number,
+          date: new Date(),
+        },
+      ];
+    });
+  };
+  function ascendingOrder() {
+    const newData = [...data];
+    const ascending = newData.sort(
+      ({price: firstVal}, {price: secondVal}) => firstVal - secondVal,
+    );
+    setData(ascending);
+  }
+  function descendingOrder() {
+    const newData = [...data];
+    const descending = newData.sort(
+      ({price: firstVal}, {price: secondVal}) => secondVal - firstVal,
+    );
+    setData(descending);
+  }
+  function timeOrder() {
+    const newData = [...data];
+    const time = newData.sort(
+      ({date: firstVal}, {date: secondVal}) => secondVal - firstVal,
+    );
+    setData(time);
+  }
+
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1}}>
       <View style={styles.badge_container}>
-        <Badge
-          title="Artan Fiyat"
-          onPress={() => {
-            ascendingOrder();
-          }}
-        />
-        <Badge
-          title="Azalan Fiyat"
-          onPress={() => {
-            descendingOrder();
-          }}
-        />
-        <Badge
-          title="Tarih"
-          onPress={() => {
-            timeOrder();
-          }}
-        />
+        <Badge title="Artan Fiyat" action={ascendingOrder} />
+        <Badge title="Azalan Fiyat" action={descendingOrder} />
+        <Badge title="Tarih" action={timeOrder} />
       </View>
-      <Products />
-      <ProductInput />
+      <View style={{flex: 6}}>
+        <Products data={data} />
+      </View>
+      <View style={{flex: 2}}>
+        <ProductInput add={addProduct} />
+      </View>
     </SafeAreaView>
   );
 };

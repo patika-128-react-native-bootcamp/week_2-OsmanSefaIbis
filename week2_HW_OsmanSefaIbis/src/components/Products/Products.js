@@ -1,11 +1,28 @@
 import React from 'react';
-import {Text, TextInput, View, FlatList} from 'react-native';
+import {Text, View, FlatList} from 'react-native';
 import styles from './Products.styles';
 
-const Products = ({title}) => {
+const ProductCard = ({name, price}) => {
+  console.log(name);
+  return (
+    <View style={styles.item}>
+      <Text>{name}</Text>
+      <Text>{price} TL</Text>
+    </View>
+  );
+};
+
+const Products = ({data}) => {
   return (
     <View>
-      <FlatList />
+      <FlatList
+        data={data}
+        renderItem={({item}) => (
+          <ProductCard name={item.name} price={item.price} />
+        )}
+        keyExtractor={item => item.id}
+        extraData={data}
+      />
     </View>
   );
 };
